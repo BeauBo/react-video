@@ -5,7 +5,7 @@
         "commonjs": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": "airbnb",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -14,20 +14,19 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"         
+        "react"     
     ],
     "settings": {
-      "import/resolver": {
+        "import/resolver": {
           "webpack": {
-              "config": ""
+            "config": "./webpack.config.js"
           }
-      }
+        }
+      },
+    "globals": {
+        "__dirname": true
     },
     "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
         "linebreak-style": [
             "error",
             "unix"
