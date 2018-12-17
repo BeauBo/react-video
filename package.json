@@ -9,7 +9,7 @@
     "watch": "webpack --watch",
     "start": "NODE_ENV=development node server.js",
     "server": "node server.js",
-    "lint": "./node_modules/.bin/eslint src/** --fix --ext .js, .jsx"
+    "lint": "./node_modules/.bin/eslint src/** --fix --ext .js"
   },
   "husky": {
     "hooks": {
