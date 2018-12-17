@@ -1,1 +1,1 @@
-export default () => console.log('---Webpack Dev Middleware-------');
+export default () => console.log('---Print.js has been called-------');
