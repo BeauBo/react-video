@@ -1,8 +1,8 @@
 const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {
   APP_PATH,
   BUILD_PATH,
@@ -35,20 +35,27 @@ module.exports = {
     sourceMapFilename: isProduction ? '[name].[chunkhash].map' : '[name].map',
   },
   devtool: isProduction ? 'cheap-module-source-map' : 'inline-source-map',
-  splitChunks: {
-    cacheGroups: {
-      commons: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        chunks: 'all',
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
       },
     },
+    noEmitOnErrors: true,
+    concatenateModules: true,
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -75,11 +82,29 @@ module.exports = {
       app: path.join(APP_PATH, 'src', 'app'),
     },
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new ManifestPlugin({ fileName: 'webpack-manifest.json' }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+
+  plugins: (function () { // eslint-disable-line func-names
+    const plugins = [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      }),
+      new CleanWebpackPlugin(['.build'], { root: APP_PATH }),
+    ];
+
+    if (isProduction) {
+      plugins.push(
+        new MiniCssExtractPlugin({
+          filename: '[name].[hash].css',
+          chunkFilename: '[id].[hash].css',
+        }),
+        new ManifestPlugin({ filename: 'webpack-manifest.json' }),
+      );
+    } else {
+      plugins.push(
+        new webpack.HotModuleReplacementPlugin(),
+      );
+    }
+
+    return plugins;
+  }()),
 };

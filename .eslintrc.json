@@ -27,6 +27,7 @@
         "__dirname": true
     },
     "rules": {
+        "no-use-before-define": ["error", { "variables": false }],
         "linebreak-style": [
             "error",
             "unix"
