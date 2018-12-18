@@ -1,6 +1,6 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
 const {
@@ -28,6 +28,9 @@ module.exports = {
 
     return entry;
   }()),
+  // entry: {
+  //   app: ['webpack-hot-middleware/client?reload=true', path.join(APP_PATH, 'src/index.js')],
+  // },
   output: {
     path: path.join(APP_PATH, BUILD_PATH),
     publicPath: PUBLIC_PATH,
@@ -67,12 +70,8 @@ module.exports = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Output Management',
     }),
     new ManifestPlugin({ fileName: 'webpack-manifest.json' }),
     new webpack.HotModuleReplacementPlugin(),

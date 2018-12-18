@@ -1,1 +1,1 @@
-export default () => console.log('---Print.js has been called-------'); // eslint-disable-line no-console
+export default () => console.log('---Testing-------'); // eslint-disable-line no-console
