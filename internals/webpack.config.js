@@ -28,9 +28,6 @@ module.exports = {
 
     return entry;
   }()),
-  // entry: {
-  //   app: ['webpack-hot-middleware/client?reload=true', path.join(APP_PATH, 'src/index.js')],
-  // },
   output: {
     path: path.join(APP_PATH, BUILD_PATH),
     publicPath: PUBLIC_PATH,
@@ -38,6 +35,15 @@ module.exports = {
     sourceMapFilename: isProduction ? '[name].[chunkhash].map' : '[name].map',
   },
   devtool: isProduction ? 'cheap-module-source-map' : 'inline-source-map',
+  splitChunks: {
+    cacheGroups: {
+      commons: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendor',
+        chunks: 'all',
+      },
+    },
+  },
   module: {
     rules: [
       {
