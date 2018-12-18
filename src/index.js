@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import printMe from './print';
 // import './style.css';
 // import Icon from './Avatar.jpg';
 // import Data from './data.xml';
@@ -14,6 +15,7 @@ const component = () => {
   // element.appendChild(myIcon);
 
   // console.log(Data);
+  printMe();
 
   return element;
 };
