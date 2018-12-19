@@ -73,3 +73,19 @@ module.exports = new Promise((resolve) => {
     console.error(chalk.redBright(err)); // eslint-disable-line no-console
   }
 });
+
+
+/**
+ * Bunldes the app based on webpack config.
+ */
+
+// const bundle = (resolve) => {
+//   // eslint-disable-next-line global-require, import/no-dynamic-require
+//   const webpackConfig = require(path.join(process.cwd(), './internals/webpack.config.js'));
+//   const compiler = webpack(webpackConfig);
+//   const isBuildingModules = false;
+
+//   console.time(chalk.green('Compile time')); // eslint-disable-line no-console
+//   console.log(chalk.blue('Building client...\n')); // eslint-disable-line no-console
+
+// };
